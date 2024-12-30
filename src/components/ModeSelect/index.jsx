@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
@@ -10,6 +9,7 @@ import {
   Select,
   useColorScheme,
 } from '@mui/material';
+import React from 'react';
 
 function ModeSelect() {
     const { mode, setMode } = useColorScheme() || {}; // Ensure context is available

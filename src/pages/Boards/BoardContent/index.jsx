@@ -1,4 +1,5 @@
-import Box  from '@mui/material/Box';
+import createTheme from "@mui/material/styles/createTheme";
+import {Box}  from '@mui/material';
 import theme  from '../../../theme';
 function BoardContent() {
   return (

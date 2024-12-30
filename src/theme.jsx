@@ -1,6 +1,6 @@
 import { orange, red, teal,cyan,deepOrange,blue} from '@mui/material/colors'
 import { experimental_extendTheme as extendTheme} from '@mui/material/styles'
-import { createTheme } from '@mui/material/styles';
+import createTheme from "@mui/material/styles/createTheme";
 // A custom theme for this app
 const theme = extendTheme({
   trelloCustom:{
