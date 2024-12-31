@@ -56,7 +56,7 @@ const theme = extendTheme({
         // Name of the slot
         root:({theme}) => ({
           // Some CSS
-          color: theme.palette.primary.main,
+          // color: theme.palette.primary.main,
           fontSize: '0.875rem',
         }),
       },
@@ -64,15 +64,18 @@ const theme = extendTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({theme}) =>( {          
-            color: theme.palette.primary.main,
+            // color: theme.palette.primary.main,
             fontSize: '0.875rem',   
-            '.MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.primary.light,
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: theme.palette.primary.main,
-            },
+            // '.MuiOutlinedInput-notchedOutline': {
+            //   borderColor: theme.palette.primary.light,
+            // },
+            // '&:hover .MuiOutlinedInput-notchedOutline': {
+            //   borderColor: theme.palette.primary.main,
+            // },
             '& fieldset': {
+              borderWidth: '0.5px !important',
+            },
+            '&:hover fieldset': {
               borderWidth: '1px !important',
             },
         }),
