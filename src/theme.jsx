@@ -1,3 +1,4 @@
+import { Height } from '@mui/icons-material';
 import { colors } from '@mui/material';
 import { orange, red, teal,cyan,deepOrange,blue} from '@mui/material/colors'
 import { experimental_extendTheme as extendTheme} from '@mui/material/styles'
@@ -26,15 +27,15 @@ const theme = extendTheme({
     MuiCssBaselines :{
       styleOverrides: {
         body: {
-          '*::-webkit-scrollbar':{
+          '::-webkit-scrollbar':{
             width:'8px',
             height:'8px'
           },
-          '*::-webkit-scrollbar-thumb':{
+          '::-webkit-scrollbar-thumb':{
             backgroundColor: '#bdc3c7',
             borderRadius: '8px',
           },
-          '*::-webkit-scrollbar-thumb::hover':{
+          '::-webkit-scrollbar-thumb::hover':{
             backgroundColor: '#00b894',
             borderRadius: '8px',
           },
