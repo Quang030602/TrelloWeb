@@ -4,15 +4,14 @@ import createTheme from "@mui/material/styles/createTheme";
 // A custom theme for this app
 const theme = extendTheme({
   trelloCustom:{
-    appBarHeight: '48px',
-    boardBarHeight:'58px',
+    appBarHeight: '58px',
+    boardBarHeight:'60px',
   },
   colorSchemes: {
     light: {
       palette:{
-        primary: blue,
-        secondary: red,
-        
+        primary: teal,
+        secondary: deepOrange,        
       },
     },
     dark: {
