@@ -84,15 +84,18 @@ function BoardBar() {
             '&:hover': {borderColor: 'white'}
           }}>
           Invite</Button>
-        <AvatarGroup max={3}
+        <AvatarGroup max={5}
           sx={{
             gap: '10px',
             '& .MuiAvatar-root': {
                width: 34, 
                height: 34,
                fontSize: '16px',
-               border:'none'
-              },
+               border:'none',
+               color: 'white',
+               cursor: 'pointer',
+               '&: first-of-type': {bgcolor:'#a4b0be'},
+              }
           }}
         >
           <Tooltip title="AiMier">
