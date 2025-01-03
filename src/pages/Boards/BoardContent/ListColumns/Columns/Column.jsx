@@ -18,9 +18,10 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import theme from '~/theme';
 import ListCards from './ListCards/ListCards';
+import  {mapOrder} from '~/utils/sort';
 
-
-function Columns (){
+function Column ({column}){
+    const orderedCards = mapOrder(column.cards, column.cardOrderIds, '_id');
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -55,7 +56,7 @@ function Columns (){
               fontWeight: 'bold',
               cursor: 'pointer',
             }}>
-              Column title
+              {column.title}
               </Typography>
             <Box> 
               <Tooltip title="More options">           
@@ -109,8 +110,10 @@ function Columns (){
               </Menu>
             </Box>
           </Box>
+
           {/*box list card */}
-          <ListCards/>
+          <ListCards cards={orderedCards}/>
+
           {/*box footer */}
           <Box sx={{
               height:(theme)=>theme.trelloCustom.columnFooterHeight,
@@ -126,4 +129,4 @@ function Columns (){
         </Box> 
     );
 }
-export default Columns;
+export default Column;

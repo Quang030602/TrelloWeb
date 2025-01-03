@@ -1,9 +1,8 @@
 import { Box } from '@mui/material';
 import Card from './Card/Card';
 import theme from '~/theme';
-const COLUMN_HEADER_HEIGHT = '50px';
-const COLUMN_FOOTER_HEIGHT = '56px';
-function ListCards (){
+
+function ListCards ({cards}){
     return (
         <Box sx={{
             p:'0 5px',
@@ -22,12 +21,8 @@ function ListCards (){
               '&::-webkit-scrollbar-thumb':{ backgroundColor: '#ced0da' },
               '&::-webkit-scrollbar-thumb::hover':{backgroundColor: 'white'},
             }}>
-            <Card/>    
-            <Card temporatyHideMedia/>    
-            <Card temporatyHideMedia/>  
-            <Card temporatyHideMedia/>  
-            <Card temporatyHideMedia/>  
-            <Card temporatyHideMedia/>  
+            {cards?.map(card => <Card key={card._id} card={card} />)}
+                         
               
         </Box>        
     );
