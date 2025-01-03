@@ -1,6 +1,4 @@
-import { Height } from '@mui/icons-material';
-import { colors } from '@mui/material';
-import { orange, red, teal,cyan,deepOrange,blue} from '@mui/material/colors'
+
 import { experimental_extendTheme as extendTheme} from '@mui/material/styles'
 // A custom theme for this app
 const theme = extendTheme({
@@ -32,11 +30,11 @@ const theme = extendTheme({
             height:'8px'
           },
           '::-webkit-scrollbar-thumb':{
-            backgroundColor: '#bdc3c7',
+            backgroundColor: '#dcdde1',
             borderRadius: '8px',
           },
           '::-webkit-scrollbar-thumb::hover':{
-            backgroundColor: '#00b894',
+            backgroundColor: 'white',
             borderRadius: '8px',
           },
         },
@@ -48,40 +46,31 @@ const theme = extendTheme({
         root: {
           // Some CSS
           textTransform: 'none',
+          borderWidth:'0.5px',
+          '&:hover': { borderWidth:'1px'},
         },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
         // Name of the slot
-        root:({theme}) => ({
-          // Some CSS
-          // color: theme.palette.primary.main,
-          fontSize: '0.875rem',
-        }),
+        root:{ fontSize: '0.875rem'}
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: ({theme}) =>( {          
-            // color: theme.palette.primary.main,
-            fontSize: '0.875rem',   
-            // '.MuiOutlinedInput-notchedOutline': {
-            //   borderColor: theme.palette.primary.light,
-            // },
-            // '&:hover .MuiOutlinedInput-notchedOutline': {
-            //   borderColor: theme.palette.primary.main,
-            // },
-            '& fieldset': {
-              borderWidth: '0.5px !important',
-            },
-            '&:hover fieldset': {
-              borderWidth: '1px !important',
-            },
-            '&.Mui-focused fieldset': {
-              borderWidth: '1px !important',
-            },
-        }),
+        root: {      
+          fontSize: '0.875rem',            
+          '& fieldset': {
+            borderWidth: '0.5px !important',
+          },
+          '&:hover fieldset': {
+            borderWidth: '1px !important',
+          },
+          '&.Mui-focused fieldset': {
+            borderWidth: '1px !important',
+          },
+      }
       },
     },
   },

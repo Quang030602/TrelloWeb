@@ -3,14 +3,12 @@ function BoardContent() {
   return (
     <Box
         sx={{
-            backgroundColor: 'primary.main',
+            bgcolor: (theme) => theme.palette.mode === 'dark' ? '#34495e':'#1976d2',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             height: (theme) =>
-            `calc(100vh - ${
-                theme.trelloCustom?.appBarHeight || 64
-            } - ${theme.trelloCustom?.boardBarHeight || 48})`,
+            `calc(100vh - ${ theme.trelloCustom?.appBarHeight} - ${theme.trelloCustom?.boardBarHeight})`,
         }}>
         Board content
     </Box>

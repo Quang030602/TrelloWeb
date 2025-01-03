@@ -33,7 +33,7 @@ export default function Profiles() {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar 
-            sx={{ width: 34, height: 34 }}
+            sx={{ width: 36, height: 36 }}
             alt = "AiMier"
             src="https://th.bing.com/th/id/OIP.yAtxmvqwYVv36qSeq_HQRAHaEK?rs=1&pid=ImgDetMain"
             >
