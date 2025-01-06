@@ -28,7 +28,8 @@ function Column ({column}){
       listeners,
       setNodeRef,
       transform,
-      transition
+      transition,
+      isDragging
     } = useSortable({
       id: column._id, 
       data:{...column},
@@ -38,6 +39,8 @@ function Column ({column}){
       touchAction:'none',
       transform: CSS.Translate.toString(transform),
       transition,
+      height:'100%',
+      opacity: isDragging ? 0.5 : undefined
     }
 
     const orderedCards = mapOrder(column.cards, column.cardOrderIds, '_id');
@@ -50,12 +53,9 @@ function Column ({column}){
     setAnchorEl(null);
     };
     return (
-        <Box
-          ref ={setNodeRef}
-          style={dndkitColumnStyles}
-          {...attributes}
+      <div  ref ={setNodeRef} style={dndkitColumnStyles}   {...attributes} >
+        <Box      
           {...listeners}
-
           sx = {{
             minWidth:'300px',
             maxWidth:'300px',
@@ -151,6 +151,7 @@ function Column ({column}){
           </Box>
 
         </Box> 
+      </div>
     );
 }
 export default Column;
