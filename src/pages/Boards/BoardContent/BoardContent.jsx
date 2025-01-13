@@ -42,17 +42,15 @@ function BoardContent({ board }) {
     setActiveDragItemData(null);
   };
 
-  const handleDragStart = (event) => {
-    const { active } = event;
-    const activeType = active.data.current?.type;
-    setActiveDragItemId(active.id);
-    setActiveDragItemType(activeType);
-    setActiveDragItemData(active.data.current);
+  }
+  const handleDragStart = (event)=>{
+    setActiveDragItemId(event?.active?.id)
+    setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
+    setActiveDragItemData(event?.active?.data?.current)
+    
+  } 
 
-    console.log('Dragging item:', active.id);
-    console.log('Item type:', activeType);
-  };
-
+    
   const customDropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
       styles: {
@@ -79,6 +77,6 @@ function BoardContent({ board }) {
       </Box>
     </DndContext>
   );
-}
+
 
 export default BoardContent;
