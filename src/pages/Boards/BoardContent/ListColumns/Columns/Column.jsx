@@ -35,7 +35,7 @@ function Column ({column}){
       data: { ...column, type: 'COLUMN' },
 
     });
-    const dndkitColumnStyles = {
+    const dndKitColumnStyles = {
       touchAction:'none',
       transform: CSS.Translate.toString(transform),
       transition,      
@@ -52,7 +52,7 @@ function Column ({column}){
     setAnchorEl(null);
     };
     return (
-      <div  ref ={setNodeRef} style={dndkitColumnStyles}   {...attributes} >
+      <div  ref ={setNodeRef} style={dndKitColumnStyles}   {...attributes} >
         <Box      
           {...listeners}
           sx = {{

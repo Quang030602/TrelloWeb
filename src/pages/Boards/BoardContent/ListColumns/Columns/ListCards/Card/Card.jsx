@@ -21,7 +21,7 @@ function Card({card}) {
     id: card._id,
     data: { ...card, type: 'CARD' },
   });
-  const dndkitCardStyles = {
+  const dndKitCardStyles = {
     transform: CSS.Translate.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
@@ -31,7 +31,7 @@ function Card({card}) {
       return !!card?.memberIds?.length||!!card?.comments?.length||!!card?.attachments?.length;
     }
     return (
-      <div ref ={setNodeRef} style={dndkitCardStyles} {...attributes}>
+      <div ref ={setNodeRef} style={dndKitCardStyles} {...attributes}>
         <MuiCard         
         {...listeners}
         sx={{ 
