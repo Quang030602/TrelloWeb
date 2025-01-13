@@ -50,12 +50,11 @@ function BoardContent({board}) {
   }
   const handleDragStart = (event)=>{
     setActiveDragItemId(event?.active?.id)
-    setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.COLUMN : ACTIVE_DRAG_ITEM_TYPE.CARD)
+    setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
     setActiveDragItemData(event?.active?.data?.current)
+    
   } 
-  console.log('activeDragItemId: ',activeDragItemId)
-  console.log('activeDragItemType: ',activeDragItemType)
-  console.log('activeDragItemData: ',activeDragItemData)
+  
 
   const customDropAnimation ={
     sideEffects: defaultDropAnimationSideEffects({
