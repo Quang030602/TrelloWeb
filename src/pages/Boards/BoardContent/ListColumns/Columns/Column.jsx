@@ -31,16 +31,15 @@ function Column ({column}){
       transition,
       isDragging
     } = useSortable({
-      id: column._id, 
-      data:{...column},
+      id: column._id,
+      data: { ...column, type: 'COLUMN' },
 
     });
     const dndkitColumnStyles = {
       touchAction:'none',
       transform: CSS.Translate.toString(transform),
-      transition,
-      height:'100%',
-      opacity: isDragging ? 0.5 : undefined
+      transition,      
+      opacity: isDragging ? 0.5 : 1,
     }
 
     const orderedCards = mapOrder(column.cards, column.cardOrderIds, '_id');

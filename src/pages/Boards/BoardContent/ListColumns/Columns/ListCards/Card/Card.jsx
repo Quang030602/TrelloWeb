@@ -10,24 +10,22 @@ import Typography from '@mui/material/Typography';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 function Card({card}) {
-    const {
-          attributes,
-          listeners,
-          setNodeRef,
-          transform,
-          transition,
-          isDragging
-        } = useSortable({
-          id: card._id, 
-          data:{...card},
-    
-        });
-        const dndkitCardStyles = {
-          transform: CSS.Translate.toString(transform),
-          transition,
-          opacity: isDragging ? 0.5 : undefined,
-          height:'100%'
-        }
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({
+    id: card._id,
+    data: { ...card, type: 'CARD' },
+  });
+  const dndkitCardStyles = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
     const shouldShowCardActions =() =>{
       return !!card?.memberIds?.length||!!card?.comments?.length||!!card?.attachments?.length;

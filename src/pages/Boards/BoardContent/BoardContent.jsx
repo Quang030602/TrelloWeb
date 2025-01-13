@@ -29,10 +29,6 @@ function BoardContent({ board }) {
   }, [board]);
 
   const handleDragEnd = (event) => {
-    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
-      console.log('keo tha column')
-      return
-    }
     const { active, over } = event;
     if (!over) return;
     if (active.id !== over.id) {
@@ -77,9 +73,8 @@ function BoardContent({ board }) {
       }}>
         <ListColumns columns={orderedColumns} />
         <DragOverlay dropAnimation={customDropAnimation}>
-          {(!activeDragItemType) && null}
-          {(activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) && <Column column={activeDragItemData} />}
-          {(activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) && <Card card={activeDragItemData} />}
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && activeDragItemData && <Column column={activeDragItemData} />}
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && activeDragItemData && <Card card={activeDragItemData} />}
         </DragOverlay>
       </Box>
     </DndContext>
