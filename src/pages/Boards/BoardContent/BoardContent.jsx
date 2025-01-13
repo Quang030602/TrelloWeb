@@ -35,6 +35,47 @@ function BoardContent({ board }) {
   const findColumnByCardId = (cardId) => {
     return orderedColumns.find(column => column.cards.map(card => card._id)?.includes(cardId));
   }
+  const moveCardToAnotherColumn = (
+    overColumn, 
+    overCardId , 
+    activeColumn, 
+    activeDraggingCardId, 
+    activeDraggingCardData , 
+    active , 
+    over
+  ) => {
+    setOrderedColumns(prevColumns => {
+      const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId);
+      let newCardIndex 
+
+      const isBelowOverItem = active.rect.current.translated && 
+      active.rect.current.translated.top > over.rect.top + over.rect.height
+
+      const modifier = isBelowOverItem ? 1 : 0
+
+      newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length +1
+      
+      const nextColumns = cloneDeep(prevColumns)
+      const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id) 
+      const nextOverColumn = nextColumns.find(column => column._id === overColumn._id) 
+      if (nextActiveColumn ){
+        nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
+        nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
+      }
+
+      if (nextOverColumn ){
+        nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCardId)
+        const rebuild_activeDraggingCardData = {
+          ...activeDraggingCardData, columnId: nextOverColumn._id
+        }
+        nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData)
+        nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
+
+      }
+      console.log('nextColumns', nextColumns)
+      return nextColumns
+    },) 
+  }
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!active || !over) return;
@@ -51,7 +92,7 @@ function BoardContent({ board }) {
       if (!activeColumn || !overColumn) { return}
      
       if (oldColumnWhenDrag._id !== overColumn._id) {
-        console.log("Move card to another column")
+        moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over)
       }
       else { 
         const oldCardIndex = oldColumnWhenDrag?.cards.findIndex(c => c._id === activeDragItemId);
@@ -97,34 +138,7 @@ function BoardContent({ board }) {
     if (!activeColumn || !overColumn) { return}
     if (activeColumn._id !== overColumn._id) { 
       // console.log("Move card to another column")
-      setOrderedColumns(prevColumns => {
-        const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId);
-        let newCardIndex 
-
-        const isBelowOverItem = active.rect.current.translated && 
-        active.rect.current.translated.top > over.rect.top + over.rect.height
-
-        const modifier = isBelowOverItem ? 1 : 0
-
-        newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length +1
-        
-        const nextColumns = cloneDeep(prevColumns)
-        const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id) 
-        const nextOverColumn = nextColumns.find(column => column._id === overColumn._id) 
-        if (nextActiveColumn ){
-          nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
-          nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
-        }
-
-        if (nextOverColumn ){
-          nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCardId)
-          nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, activeDraggingCardData)
-          nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
-
-        }
-        console.log('nextColumns', nextColumns)
-        return nextColumns
-      },)
+      moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over)
     }
 }
   const handleDragStart = (event)=>{
