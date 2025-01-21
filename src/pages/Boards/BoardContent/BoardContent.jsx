@@ -1,5 +1,5 @@
 import { 
-  DndContext, MouseSensor, TouchSensor, defaultDropAnimationSideEffects, 
+  DndContext, defaultDropAnimationSideEffects, 
   useSensor, useSensors, DragOverlay , closestCorners, closestCenter,
   pointerWithin, rectIntersection, getFirstCollision
 } from '@dnd-kit/core';
@@ -12,6 +12,7 @@ import Card from './ListColumns/Columns/ListCards/Card/Card';
 import ListColumns from './ListColumns/ListColumns';
 import { cloneDeep, isEmpty } from 'lodash';
 import { generatePlaceholderCard } from '~/utils/formatters';
+import { MouseSensor, TouchSensor } from '~/customLib/DndKitSensors';
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
