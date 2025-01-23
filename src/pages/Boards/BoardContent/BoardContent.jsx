@@ -19,7 +19,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 };
 
-function BoardContent({ board }) {
+function BoardContent({ board,createNewColumn, createNewCard }) {
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
   const touchSensor = useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } });
 
@@ -219,7 +219,11 @@ function BoardContent({ board }) {
         height: (theme) => theme.trelloCustom.boardContentHeight,
         p: '10px 0',
       }}>
-        <ListColumns columns={orderedColumns} />
+        <ListColumns 
+          columns={orderedColumns}
+          createNewColumn ={createNewColumn}
+          createNewCard = {createNewCard}
+        />
         <DragOverlay dropAnimation={customDropAnimation}>
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && activeDragItemData && <Column column={activeDragItemData} />}
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && activeDragItemData && <Card card={activeDragItemData} />}
