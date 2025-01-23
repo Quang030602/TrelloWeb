@@ -18,7 +18,7 @@ function ListColumns({columns}) {
     if (!newColumnTitle)
       {
         toast.error('Please enter column title',{
-          position: "bottom-right",
+          position: "top-center",
         })
         return
       }
