@@ -19,7 +19,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 };
 
-function BoardContent({ board,createNewColumn, createNewCard }) {
+function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
   const touchSensor = useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } });
 
@@ -123,6 +123,7 @@ function BoardContent({ board,createNewColumn, createNewCard }) {
         const oldIndex = orderedColumns.findIndex(c => c._id === active.id);
         const newIndex = orderedColumns.findIndex(c => c._id === over.id);
         const dndOrderedColumns = arrayMove(orderedColumns, oldIndex, newIndex);
+        moveColumns(dndOrderedColumns);
         setOrderedColumns(dndOrderedColumns);
       }
     }    
@@ -149,6 +150,7 @@ function BoardContent({ board,createNewColumn, createNewCard }) {
       moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over)
     }
 }
+
   const handleDragStart = (event)=>{
     setActiveDragItemId(event?.active?.id)
     setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)

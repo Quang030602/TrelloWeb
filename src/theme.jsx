@@ -16,18 +16,20 @@ const theme = extendTheme({
     columnFooterHeight: COLUMN_FOOTER_HEIGHT,
   },
   colorSchemes: {
-    // light: {
-    //   palette:{
-    //     primary: teal,
-    //     secondary: deepOrange,        
-    //   },
-    // },
-    // dark: {
-    //   palette: {       
-    //     primary: cyan,
-    //     secondary: orange,       
-    //   },
-    // },
+    light: {
+      palette: {
+        primary: { main: '#009688' }, // teal
+        secondary: { main: '#FF5722' }, // deepOrange
+        info: { main: '#2196F3' }, // blue
+      },
+    },
+    dark: {
+      palette: {
+        primary: { main: '#00BCD4' }, // cyan
+        secondary: { main: '#FF9800' }, // orange
+        info: { main: '#2196F3' }, // blue
+      },
+    },
   },
   components: {
     // Name of the component
@@ -88,6 +90,28 @@ const theme = extendTheme({
             borderWidth: '1px !important',
           },
       }
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          '&.MuiSvgIcon-fontSizeMedium': {
+            '&[data-testid="DragHandleIcon"]': {
+              color: 'black', // Change DragHandleIcon color to black
+            },
+          },
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white !important', // Ensure background color is white
+          color: 'black !important', // Ensure text color is black
+          border: 'none !important', // Remove border
+
+          borderRadius: '8px !important', // Make the frame rounded
+        },
       },
     },
   },
