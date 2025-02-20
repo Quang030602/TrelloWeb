@@ -6,7 +6,6 @@ import {
 import { arrayMove } from '@dnd-kit/sortable';
 import { Box } from '@mui/material';
 import { useCallback, useEffect, useState,useRef } from 'react';
-import { mapOrder } from '~/utils/sort';
 import Column from './ListColumns/Columns/Column';
 import Card from './ListColumns/Columns/ListCards/Card/Card';
 import ListColumns from './ListColumns/ListColumns';
@@ -19,7 +18,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 };
 
-function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
+function BoardContent({ board,createNewColumn, createNewCard, moveColumns, moveCardInTheSameColumn , moveCardToDifferentColumn}) {
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
   const touchSensor = useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } });
 
@@ -33,8 +32,7 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
   const lastOverId = useRef(null);
 
   useEffect(() => {
-    const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id');
-    setOrderedColumns(orderedColumns);
+    setOrderedColumns(board.columns);
   }, [board]);
   const findColumnByCardId = (cardId) => {
     return orderedColumns.find(column => column.cards.map(card => card._id)?.includes(cardId));
@@ -46,7 +44,8 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
     activeDraggingCardId, 
     activeDraggingCardData , 
     active , 
-    over
+    over,
+    triggerForm,
   ) => {
     setOrderedColumns(prevColumns => {
       const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId);
@@ -80,7 +79,10 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
 
       }
-      console.log('nextColumns', nextColumns)
+      if (triggerForm === 'handleDragEnd') {
+        moveCardToDifferentColumn(activeDraggingCardId, oldColumnWhenDrag._id, nextOverColumn._id, nextColumns)
+      }
+
       return nextColumns
     },) 
   }
@@ -100,20 +102,23 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
       if (!activeColumn || !overColumn) { return}
      
       if (oldColumnWhenDrag._id !== overColumn._id) {
-        moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over)
+        moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over,'handleDragEnd')
       }
       else { 
         const oldCardIndex = oldColumnWhenDrag?.cards.findIndex(c => c._id === activeDragItemId);
         const newCardIndex = overColumn?.cards.findIndex(c => c._id === overCardId);
         const dndOrderedCards = arrayMove(oldColumnWhenDrag?.cards, oldCardIndex, newCardIndex);
+        const dndOrderedCardIds = dndOrderedCards.map(card => card._id);
+
         setOrderedColumns(prevColumns => {
           const nextColumns = cloneDeep(prevColumns)
           const targetColumn = nextColumns.find(column => column._id === overColumn._id)
           targetColumn.cards = dndOrderedCards
-          targetColumn.cardOrderIds = dndOrderedCards.map(card => card._id)
+          targetColumn.cardOrderIds = dndOrderedCardIds
           console.log('nextColumns', targetColumn)
           return nextColumns
         })
+        moveCardInTheSameColumn(dndOrderedCards, dndOrderedCardIds, oldColumnWhenDrag._id);
       }
     }
 
@@ -123,8 +128,9 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
         const oldIndex = orderedColumns.findIndex(c => c._id === active.id);
         const newIndex = orderedColumns.findIndex(c => c._id === over.id);
         const dndOrderedColumns = arrayMove(orderedColumns, oldIndex, newIndex);
-        moveColumns(dndOrderedColumns);
         setOrderedColumns(dndOrderedColumns);
+        moveColumns(dndOrderedColumns);
+        
       }
     }    
     setActiveDragItemId(null);
@@ -147,7 +153,7 @@ function BoardContent({ board,createNewColumn, createNewCard, moveColumns }) {
     if (!activeColumn || !overColumn) { return}
     if (activeColumn._id !== overColumn._id) { 
       // console.log("Move card to another column")
-      moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over)
+      moveCardToAnotherColumn(overColumn, overCardId, activeColumn, activeDraggingCardId, activeDraggingCardData, active, over,'handleDragOver')
     }
 }
 
