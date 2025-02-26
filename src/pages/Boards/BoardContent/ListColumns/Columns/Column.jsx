@@ -44,12 +44,16 @@ function Column({ column, createNewCard }) {
     opacity: isDragging ? 0.5 : 1,
   };
 
+<<<<<<< Updated upstream
   const orderedCards = column.cards;
+=======
+  const orderedCards = column.cards 
+>>>>>>> Stashed changes
   const [openNewCardForm, setOpenNewCardForm] = useState(false);
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm);
   const [newCardTitle, setNewCardTitle] = useState('');
 
-  const addNewCard = async () => {
+  const addNewCard =  () => {
     if (!newCardTitle) {
       toast.error('Please enter Card title', {
         position: 'bottom-right'
@@ -60,7 +64,7 @@ function Column({ column, createNewCard }) {
       title: newCardTitle,
       columnId: column._id,
     };
-    await createNewCard(newCardData);
+    createNewCard(newCardData);
     toggleOpenNewCardForm();
     setNewCardTitle('');
   };
