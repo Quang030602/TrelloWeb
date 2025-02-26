@@ -45,7 +45,11 @@ function Column({ column, createNewCard }) {
   };
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const orderedCards = column.cards;
+=======
+  const orderedCards = column.cards 
+>>>>>>> Stashed changes
 =======
   const orderedCards = column.cards 
 >>>>>>> Stashed changes
